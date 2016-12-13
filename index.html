@@ -8,5 +8,218 @@
         <script type="text/javascript" src="Script/Main.js"></script>
     </head>
     <body>
+        <div id="container"></div>
+        <script type="text/javascript" src="Script/react.js"></script>
+        <script type="text/javascript" src="Script/react-dom.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+
+        <script type="text/babel">
+            var Experience = React.createClass({
+                render: function() {
+                    var InfoNode = this.props.data.map(function(Exp, i){
+                        var DescNode = Exp.Description.map(function(Desc, j){
+                            return <li key={j}>{Desc}</li>
+                        })
+                        return (
+                            <div key={i}>
+                                <h2>{Exp.Title}</h2>
+                                <h3>{Exp.JobTitle}</h3>
+                                <p>{Exp.Time}</p>
+                                <ul>
+                                    {DescNode}
+                                </ul>
+                            </div>
+                        )
+                    });
+                    return (
+                        <div>
+                            <h1>Experience</h1>
+                            {InfoNode}
+                        </div>
+                    )
+                }
+            });
+            var Skill = React.createClass({
+                render: function(){
+                    var FieldNode = this.props.data.map(function(Field, i){
+                        var KindNode = Field.Kind.map(function(Kind, j){
+                            return <li key={j}>{Kind}</li>
+                        })
+                        return (
+                            <div key={i}>
+                                <h2>{Field.Title}</h2>
+                                <ul>
+                                    {KindNode}
+                                </ul>
+                            </div>
+                        )
+                    })
+
+                    return (
+                        <div>
+                            <h1>Skill</h1>
+                            {FieldNode}
+                        </div>
+                    )
+                }
+            });
+
+            var Project = React.createClass({
+                render: function(){
+                    var VolNode = this.props.data.map(function(Vol, i){
+                        var SubProjectNode = Vol.List.map(function(Sub, j){
+                            return (
+                                <li key={j}>
+                                    {Sub.Title}: {Sub.Description}
+                                </li>
+                            )
+                        })
+                        return (
+                            <div>
+                                <h2>{Vol.Lang}</h2>
+                                <ul>
+                                    {SubProjectNode}
+                                </ul>
+                            </div>
+                        )
+                    })
+                    return (
+                        <div>
+                            <h1>Projects</h1>
+                            {VolNode}
+                        </div>
+                    )
+                }
+            });
+
+            var Education = React.createClass({
+                render: function(){
+                    var EduNode = this.props.data.map(function(Edu, i){
+                        return (
+                            <li key={i}>
+                                {Edu.Title},
+                                {Edu.Deptartment},
+                                {Edu.School},
+                                {Edu.City},
+                                ({Edu.Time})
+                            </li>
+                        )
+                    })
+
+                    return (
+                        <div>
+                            <h1>Education</h1>
+                            <ul>
+                                {EduNode}
+                            </ul>
+                        </div>
+                    )
+                }
+            });
+
+            var Resume = React.createClass({
+                render: function() {
+                    // console.log(this.props.data.Experience);
+
+                    return (
+                        <div>
+                            <Experience data={this.props.data.Experience} />
+                            <Skill data={this.props.data.Skill} />
+                            <Project data={this.props.data.Project} />
+                            <Education data={this.props.data.Education} />
+                        </div>
+                    );
+                }
+            });
+
+            var Obj = {
+                Summary: {},
+
+                Experience: [{
+                    Title: 'HAMASTAR Technology Co., Ltd.',
+                    Time: 'Since November 2012 to current',
+                    JobTitle: 'Software Engineer',
+                    Description: [
+                        'Website Develop',
+                        'Information Visualization',
+            			'Database schema maintain',
+            			'Windows service develop',
+            			'Supporting tool develop'
+                    ]
+                }],
+
+                Skill: [{
+                    Title: 'Language',
+                    Kind: [
+                        'C',
+                		'C++',
+                		'C#',
+                		'ASP.Net',
+                		'PHP',
+                		'Javascript (jQuery, D3.js, HighCharts.js, React.js)',
+                		'CSS',
+                		'SQL(MySQL and SQL Server)'
+                    ]
+                },
+                {
+                    Title: 'REVISION CONTROL',
+                    Kind: [
+                        'Git',
+                		'SVN',
+                		'TFS'
+                    ]
+                }],
+
+                Project: [{
+                    Lang: 'C#, Asp.Net',
+                    List: [{
+                        Title: 'Taiwan International Ports Corporation, Ltd Official Website',
+                        Description: ''
+                    },
+                    {
+                        Title: 'National Yang-Ming University - Dormitory Management System',
+                        Description: 'A system manage dormitory applications and arrange beds'
+                    }]
+                },{
+                    Lang: 'Javascript(jQuery, D3.js, React.js)',
+                    List: [{
+                        Title: 'Gender Equality Committee of the Executive Yuan - Statistics Database Site',
+                        Description: 'Display statistical chart about gender equality information'
+                    },{
+                        Title: 'Executive Yuan Official Website - Price Chart of Livehood Goods',
+                        Description: 'Display price chart of livehood goods'
+                    }]
+                },{
+                    Lang: 'C#, Asp.Net, Javascript(jQuery)',
+                    List: [{
+                        Title: 'Executive Yuan Kid Site - Game Area',
+                        Description: 'Simple game in web for kids. Like painter, tic tac toe, quest assign'
+                    },{
+                        Title: 'Gender Equality Committee of the Executive Yuan - Game School Site',
+                        Description: 'Simple game in web for kids. Like tic tac toe, racing car, quest assign'
+                    }]
+                }],
+
+                Education: [{
+                    Title: 'Master degree of engineering',
+                    Deptartment: 'department of computer science and engineering',
+                    School: 'National Sun Yat-sen University',
+                    City: 'Kaohsiung',
+                    Time: '09/2010 ~ 09/2012'
+                },{
+                    Title: 'Bachelor of engineering',
+                    Deptartment: 'department of computer science and engineering',
+                    School: 'National Sun Yat-sen University',
+                    City: 'Kaohsiung',
+                    Time: '09/2006 ~ 06/2010'
+                }]
+            }
+
+            // var start = new Date().getTime();
+            ReactDOM.render(
+                <Resume data={Obj} />,
+                document.getElementById('container')
+            );
+        </script>
     </body>
 </html>

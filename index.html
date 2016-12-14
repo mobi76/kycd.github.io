@@ -14,20 +14,73 @@
     <body>
         <div id="container"></div>
         <script type="text/babel">
+            var ListNode = React.createClass({
+                render: function() {
+                    var SubNode = this.props.data.map(function(Sub, i) {
+                        return (
+                            <li>{Sub}</li>
+                        )
+                    });
+                    return (
+                        <ul>{SubNode}</ul>
+                    )
+                }
+            });
+
+            var Contact = React.createClass({
+                render: function() {
+                    var MethodNode = this.props.data.map(function(Method, i) {
+                        var Val = (function() {
+                            switch (Method.ValType) {
+                                case 'string':
+                                    return (<span>{Method.Val}</span>)
+                                    break;
+                                case 'link':
+                                    return (<a href={Method.Val} target="_blank">{Method.Val}</a>)
+                                    break;
+                            }
+                        })();
+
+                        return (
+                            <li>
+                                <strong>{Method.Type}</strong>: {Val}
+                            </li>
+                        )
+                    })
+
+                    var Title = "Cheng, Kai-yuan's RESUME";
+                    return (
+                        <div>
+                            <h1>{Title}</h1>
+                            <ul>
+                                {MethodNode}
+                            </ul>
+                        </div>
+                    )
+                }
+            })
+
+            var Summary = React.createClass({
+                render: function() {
+                    return (
+                        <div>
+                            <h1>Summary</h1>
+                            <ListNode data={this.props.data.Highlight} />
+                            <p>{this.props.data.Msg}</p>
+                        </div>
+                    )
+                }
+            })
+
             var Experience = React.createClass({
                 render: function() {
-                    var InfoNode = this.props.data.map(function(Exp, i){
-                        var DescNode = Exp.Description.map(function(Desc, j){
-                            return <li key={j}>{Desc}</li>
-                        })
+                    var InfoNode = this.props.data.map(function(Exp, i) {
                         return (
                             <div key={i}>
                                 <h2>{Exp.Title}</h2>
                                 <h3>{Exp.JobTitle}</h3>
                                 <p>{Exp.Time}</p>
-                                <ul>
-                                    {DescNode}
-                                </ul>
+                                <ListNode data={Exp.Description} />
                             </div>
                         )
                     });
@@ -39,18 +92,17 @@
                     )
                 }
             });
+
             var Skill = React.createClass({
-                render: function(){
-                    var FieldNode = this.props.data.map(function(Field, i){
-                        var KindNode = Field.Kind.map(function(Kind, j){
-                            return <li key={j}>{Kind}</li>
-                        })
+                render: function() {
+                    var FieldNode = this.props.data.map(function(Field, i) {
+                        // var KindNode = Field.Kind.map(function(Kind, j) {
+                        //     return <li key={j}>{Kind}</li>
+                        // })
                         return (
                             <div key={i}>
                                 <h2>{Field.Title}</h2>
-                                <ul>
-                                    {KindNode}
-                                </ul>
+                                <ListNode data={Field.Kind} />
                             </div>
                         )
                     })
@@ -65,15 +117,26 @@
             });
 
             var Project = React.createClass({
-                render: function(){
-                    var VolNode = this.props.data.map(function(Vol, i){
-                        var SubProjectNode = Vol.List.map(function(Sub, j){
+                render: function() {
+                    var VolNode = this.props.data.map(function(Vol, i) {
+                        var SubProjectNode = Vol.List.map(function(Sub, j) {
+                            var Title = (function() {
+                                if(Sub.Link == '')
+                                    return (
+                                        <span>{Sub.Title}</span>
+                                    )
+
+                                return (
+                                    <a href={Sub.Link} target="_blank">{Sub.Title}</a>
+                                )
+                            })()
                             return (
                                 <li key={j}>
-                                    {Sub.Title}: {Sub.Description}
+                                    {Title}
+                                    <ListNode data={Sub.Description} />
                                 </li>
                             )
-                        })
+                        });
                         return (
                             <div key={i}>
                                 <h2>{Vol.Lang}</h2>
@@ -93,8 +156,8 @@
             });
 
             var Education = React.createClass({
-                render: function(){
-                    var EduNode = this.props.data.map(function(Edu, i){
+                render: function() {
+                    var EduNode = this.props.data.map(function(Edu, i) {
                         return (
                             <li key={i}>
                                 {Edu.Title},
@@ -117,31 +180,83 @@
                 }
             });
 
+            var Contest = React.createClass({
+                render: function() {
+                    var List = this.props.data.map(function(Node, i) {
+                        return (
+                            <li key={i}>
+                                {Node.Title}
+                                <ListNode data={Node.Description} />
+                            </li>
+                        )
+                    })
+                    return(
+                        <div>
+                            <h1>Contest</h1>
+                            <ul>
+                                {List}
+                            </ul>
+                        </div>
+                    )
+                }
+            })
+
             var Resume = React.createClass({
                 render: function() {
                     // console.log(this.props.data.Experience);
 
                     return (
                         <div>
+                            <Contact data={this.props.data.Contact} />
+                            <Summary data={this.props.data.Summary} />
                             <Experience data={this.props.data.Experience} />
                             <Skill data={this.props.data.Skill} />
                             <Project data={this.props.data.Project} />
                             <Education data={this.props.data.Education} />
+                            <Contest data={this.props.data.Contest} />
                         </div>
                     );
                 }
             });
 
             var Obj = {
-                Summary: {},
+                Contact: [{
+                    Type: 'E-mail',
+                    Val: 'kycd.dark@gmail.com',
+                    ValType: 'string'
+                },{
+                    Type: 'Github',
+                    Val: 'https://github.com/kycd',
+                    ValType: 'link'
+                },{
+                    Type: 'Homepage',
+                    Val: 'https://kycd.github.io/',
+                    ValType: 'link'
+                },{
+                    Type: 'Linkedin',
+                    Val: 'https://www.linkedin.com/in/kai-yuan-cheng-0a3ab912a',
+                    ValType: 'link'
+                },{
+                    Type: 'Phone',
+                    Val: '+886-912-174-745',
+                    ValType: 'string'
+                }],
+
+                Summary: {
+                    Highlight: [
+                        'Programmer of C/C++, C# and Javascript.',
+                        'Specialize in front-end, coverd in back-end.'
+                    ],
+                    Msg: 'Programing experience over ten years, specialize in website development. Love to find different ways to complete the work, enjoy develop supporting tool to improve workflow. Usually using C# and Javascript, now learning Node.js, Golang.'
+                },
 
                 Experience: [{
                     Title: 'HAMASTAR Technology Co., Ltd.',
                     Time: 'Since November 2012 to current',
                     JobTitle: 'Software Engineer',
                     Description: [
-                        'Website Develop',
-                        'Information Visualization',
+                        'Website develop',
+                        'Information visualization',
             			'Database schema maintain',
             			'Windows service develop',
             			'Supporting tool develop'
@@ -174,29 +289,35 @@
                     Lang: 'C#, Asp.Net',
                     List: [{
                         Title: 'Taiwan International Ports Corporation, Ltd Official Website',
-                        Description: ''
+                        Link: 'http://www.twport.com.tw/en/',
+                        Description: ['Several system like news, photo, video, vote, contact, opendata.']
                     },
                     {
                         Title: 'National Yang-Ming University - Dormitory Management System',
-                        Description: 'A system manage dormitory applications and arrange beds'
+                        Link: '',
+                        Description: ['A system manage dormitory applications and arrange beds.']
                     }]
                 },{
                     Lang: 'Javascript(jQuery, D3.js, React.js)',
                     List: [{
                         Title: 'Gender Equality Committee of the Executive Yuan - Statistics Database Site',
-                        Description: 'Display statistical chart about gender equality information'
+                        Link: 'https://www.gender.ey.gov.tw/gecdb/',
+                        Description: ['Display statistical chart about gender equality information.']
                     },{
-                        Title: 'Executive Yuan Official Website - Price Chart of Livehood Goods',
-                        Description: 'Display price chart of livelihood necessities'
+                        Title: 'Executive Yuan Official Website - Price Chart of Livehood Necessities',
+                        Link: 'http://www.ey.gov.tw/InfoView.aspx?n=485A66D492D051A4&s=FB01D469347C76A7',
+                        Description: ['Display price chart of livelihood necessities.']
                     }]
                 },{
                     Lang: 'C#, Asp.Net, Javascript(jQuery)',
                     List: [{
                         Title: 'Executive Yuan Kid Site - Game Area',
-                        Description: 'Simple game in web for kids. Like painter, tic tac toe, quest assign'
+                        Link: 'http://kids.ey.gov.tw/cp.aspx?n=C5B39410DEB35AA5',
+                        Description: ['Simple game in web for kids. Like painter, tic tac toe, quest assign']
                     },{
                         Title: 'Gender Equality Committee of the Executive Yuan - Game School Site',
-                        Description: 'Simple game in web for kids. Like tic tac toe, racing car, quest assign'
+                        Link: 'https://www.gender.ey.gov.tw/school/',
+                        Description: ['Simple game in web for kids. Like tic tac toe, racing car, quest assign']
                     }]
                 }],
 
@@ -212,10 +333,32 @@
                     School: 'National Sun Yat-sen University',
                     City: 'Kaohsiung',
                     Time: '09/2006 ~ 06/2010'
-                }]
+                }],
+
+                Contest: [
+                    {
+                        Title: 'ACM-ICPC Asia',
+                        Description: ['Participate Taiwan site in 2006, 2007, 2008, 2009, 2010.']
+                    },
+                    {
+                        Title: 'NCPC (National Collegiate Programming Contest)',
+                        Description: [
+                            'Participate in 2006, 2007, 2008, 2009, 2010.',
+                            'Award for Excellent in 2007, 2009, 2010.'
+                        ]
+                    },
+                    {
+                        Title: 'NSYSU Campus-Wide Programming Contest',
+                        Description: [
+                            'Participate in 2006, 2007, 2008, 2009.',
+                            'First price in 2006, 2007.',
+                            'Award for Excellent in 2008.',
+                            'Third price in 2009.'
+                        ]
+                    }
+                ]
             }
 
-            // var start = new Date().getTime();
             ReactDOM.render(
                 <Resume data={Obj} />,
                 document.getElementById('container')

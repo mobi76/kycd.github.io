@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Cheng, Kai-yuan's Resume</title>
+
+        <link rel="stylesheet" type="text/css" href="Style/Main.css" />
+        <script type="text/javascript" src="Script/Main.js"></script>
+        <script type="text/javascript" src="Script/react.min.js"></script>
+        <script type="text/javascript" src="Script/react-dom.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+
+    </head>
+    <body>
+        <div id="container"></div>
+        <script type="text/babel">
+            var ListNode = React.createClass({
+                render: function() {
+                    var SubNode = this.props.data.map(function(Sub, i) {
+                        return (
+                            <li>{Sub}</li>
+                        )
+                    });
+                    return (
+                        <ul>{SubNode}</ul>
+                    )
+                }
+            });
+
+            var Contact = React.createClass({
+                render: function() {
+                    var MethodNode = this.props.data.map(function(Method, i) {
+                        var Val = (function() {
+                            switch (Method.ValType) {
+                                case 'string':
+                                    return (<span>{Method.Val}</span>)
+                                    break;
+                                case 'link':
+                                    return (<a href={Method.Val} target="_blank">{Method.Val}</a>)
+                                    break;
+                            }
+                        })();
+
+                        return (
+                            <li>
+                                <strong>{Method.Type}</strong>: {Val}
+                            </li>
+                        )
+                    })
+
+                    var Title = "Cheng, Kai-yuan's RESUME";
+                    return (
+                        <div>
+                            <h1>{Title}</h1>
+                            <ul>
+                                {MethodNode}
+                            </ul>
+                        </div>
+                    )
+                }
+            })
+
+            var Summary = React.createClass({
+                render: function() {
+                    return (
+                        <div>
+                            <h1>Summary</h1>
+                            <ListNode data={this.props.data.Highlight} />
+                            <p>{this.props.data.Msg}</p>
+                        </div>
+                    )
+                }
+            })
+
+            var Experience = React.createClass({
+                render: function() {
+                    var InfoNode = this.props.data.map(function(Exp, i) {
+                        return (
+                            <div key={i}>
+                                <h2>{Exp.Title}</h2>
+                                <h3>{Exp.JobTitle}</h3>
+                                <p>{Exp.Time}</p>
+                                <ListNode data={Exp.Description} />
+                            </div>
+                        )
+                    });
+                    return (
+                        <div>
+                            <h1>Experience</h1>
+                            {InfoNode}
+                        </div>
+                    )
+                }
+            });
+
+            var Skill = React.createClass({
+                render: function() {
+                    var FieldNode = this.props.data.map(function(Field, i) {
+                        // var KindNode = Field.Kind.map(function(Kind, j) {
+                        //     return <li key={j}>{Kind}</li>
+                        // })
+                        return (
+                            <div key={i}>
+                                <h2>{Field.Title}</h2>
+                                <ListNode data={Field.Kind} />
+                            </div>
+                        )
+                    })
+
+                    return (
+                        <div>
+                            <h1>Skill</h1>
+                            {FieldNode}
+                        </div>
+                    )
+                }
+            });
+
+            var Project = React.createClass({
+                render: function() {
+                    var VolNode = this.props.data.map(function(Vol, i) {
+                        var SubProjectNode = Vol.List.map(function(Sub, j) {
+                            var Title = (function() {
+                                if(Sub.Link == '')
+                                    return (
+                                        <span>{Sub.Title}</span>
+                                    )
+
+                                return (
+                                    <a href={Sub.Link} target="_blank">{Sub.Title}</a>
+                                )
+                            })()
+                            return (
+                                <li key={j}>
+                                    {Title}
+                                    <ListNode data={Sub.Description} />
+                                </li>
+                            )
+                        });
+                        return (
+                            <div key={i}>
+                                <h2>{Vol.Lang}</h2>
+                                <ul>
+                                    {SubProjectNode}
+                                </ul>
+                            </div>
+                        )
+                    })
+                    return (
+                        <div>
+                            <h1>Projects</h1>
+                            {VolNode}
+                        </div>
+                    )
+                }
+            });
+
+            var Education = React.createClass({
+                render: function() {
+                    var EduNode = this.props.data.map(function(Edu, i) {
+                        return (
+                            <li key={i}>
+                                {Edu.Title},
+                                {Edu.Deptartment},
+                                {Edu.School},
+                                {Edu.City},
+                                ({Edu.Time})
+                            </li>
+                        )
+                    })
+
+                    return (
+                        <div>
+                            <h1>Education</h1>
+                            <ul>
+                                {EduNode}
+                            </ul>
+                        </div>
+                    )
+                }
+            });
+
+            var Contest = React.createClass({
+                render: function() {
+                    var List = this.props.data.map(function(Node, i) {
+                        return (
+                            <li key={i}>
+                                {Node.Title}
+                                <ListNode data={Node.Description} />
+                            </li>
+                        )
+                    })
+                    return(
+                        <div>
+                            <h1>Contest</h1>
+                            <ul>
+                                {List}
+                            </ul>
+                        </div>
+                    )
+                }
+            })
+
+            var Resume = React.createClass({
+                render: function() {
+                    // console.log(this.props.data.Experience);
+
+                    return (
+                        <div>
+                            <Contact data={this.props.data.Contact} />
+                            <Summary data={this.props.data.Summary} />
+                            <Experience data={this.props.data.Experience} />
+                            <Skill data={this.props.data.Skill} />
+                            <Project data={this.props.data.Project} />
+                            <Education data={this.props.data.Education} />
+                            <Contest data={this.props.data.Contest} />
+                        </div>
+                    );
+                }
+            });
+
+            var Obj = {
+                Contact: [{
+                    Type: 'E-mail',
+                    Val: 'kycd.dark@gmail.com',
+                    ValType: 'string'
+                },{
+                    Type: 'Github',
+                    Val: 'https://github.com/kycd',
+                    ValType: 'link'
+                },{
+                    Type: 'Homepage',
+                    Val: 'https://kycd.github.io/',
+                    ValType: 'link'
+                },{
+                    Type: 'Linkedin',
+                    Val: 'https://www.linkedin.com/in/kai-yuan-cheng-0a3ab912a',
+                    ValType: 'link'
+                },{
+                    Type: 'Phone',
+                    Val: '+886-912-174-745',
+                    ValType: 'string'
+                }],
+
+                Summary: {
+                    Highlight: [
+                        'Programmer of C/C++, C# and Javascript.',
+                        'Specialize in front-end, coverd in back-end.'
+                    ],
+                    Msg: 'Programing experience over ten years, specialize in website development. Love to find different ways to complete the work, enjoy develop supporting tool to improve workflow. Usually using C# and Javascript, now learning Node.js, Golang.'
+                },
+
+                Experience: [{
+                    Title: 'HAMASTAR Technology Co., Ltd.',
+                    Time: 'Since November 2012 to current',
+                    JobTitle: 'Software Engineer',
+                    Description: [
+                        'Website develop',
+                        'Information visualization',
+            			'Database schema maintain',
+            			'Windows service develop',
+            			'Supporting tool develop'
+                    ]
+                }],
+
+                Skill: [{
+                    Title: 'Language',
+                    Kind: [
+                        'C',
+                		'C++',
+                		'C#',
+                		'ASP.Net',
+                		'PHP',
+                		'Javascript (jQuery, D3.js, HighCharts.js, React.js)',
+                		'CSS',
+                		'SQL(MySQL and SQL Server)'
+                    ]
+                },
+                {
+                    Title: 'REVISION CONTROL',
+                    Kind: [
+                        'Git',
+                		'SVN',
+                		'TFS'
+                    ]
+                }],
+
+                Project: [{
+                    Lang: 'C#, Asp.Net',
+                    List: [{
+                        Title: '台灣港務公司 - 官方網站',
+                        Link: 'http://www.twport.com.tw/',
+                        Description: ['Several system like news, photo, video, vote, contact, opendata.']
+                    },
+                    {
+                        Title: '國立陽明大學 - 宿舍管理系統',
+                        Link: '',
+                        Description: ['A system manage dormitory applications and arrange beds.']
+                    }]
+                },{
+                    Lang: 'Javascript(jQuery, D3.js, React.js)',
+                    List: [{
+                        Title: '行政院性平處 - 性別統計資料庫',
+                        Link: 'https://www.gender.ey.gov.tw/gecdb/',
+                        Description: ['Display statistical chart about gender equality information.']
+                    },{
+                        Title: '行政院全球資訊網 - 15項民生必需品賣場月均價參考資訊',
+                        Link: 'http://www.ey.gov.tw/InfoView.aspx?n=485A66D492D051A4&s=FB01D469347C76A7',
+                        Description: ['以D3.js呈現民生必需品價格走勢圖.']
+                    }]
+                },{
+                    Lang: 'C#, Asp.Net, Javascript(jQuery)',
+                    List: [{
+                        Title: '行政院兒童網 - 遊戲總動員',
+                        Link: 'http://kids.ey.gov.tw/cp.aspx?n=C5B39410DEB35AA5',
+                        Description: ['Simple game in web for kids. Like painter, tic tac toe, quest assign']
+                    },{
+                        Title: '行政院性平處 - 性平小學堂',
+                        Link: 'https://www.gender.ey.gov.tw/school/',
+                        Description: ['Simple game in web for kids. Like tic tac toe, racing car, quest assign']
+                    }]
+                }],
+
+                Education: [{
+                    Title: 'Master degree of engineering',
+                    Deptartment: 'department of computer science and engineering',
+                    School: 'National Sun Yat-sen University',
+                    City: 'Kaohsiung',
+                    Time: '09/2010 ~ 09/2012'
+                },{
+                    Title: 'Bachelor of engineering',
+                    Deptartment: 'department of computer science and engineering',
+                    School: 'National Sun Yat-sen University',
+                    City: 'Kaohsiung',
+                    Time: '09/2006 ~ 06/2010'
+                }],
+
+                Contest: [
+                    {
+                        Title: 'ACM-ICPC亞洲區',
+                        Description: [
+                            '曾參與2006, 2007, 2008, 2009, 2010台灣賽區.',
+                            '2007年排名為台灣賽區第13名.'
+                        ]
+                    },
+                    {
+                        Title: '全國大專電腦軟體設計競賽',
+                        Description: [
+                            '曾參與2006, 2007, 2008, 2009, 2010年甲組.',
+                            '2007, 2009, 2010年獲得佳作.'
+                        ]
+                    },
+                    {
+                        Title: '中山大學程式設計競賽',
+                        Description: [
+                            '曾參與2006, 2007, 2008, 2009年競賽.',
+                            '2006年獲得乙組冠軍',
+                            '2007年獲得甲組冠軍',
+                            '2008年獲得甲組佳作',
+                            '2009年獲得甲組第3名'
+                        ]
+                    }
+                ]
+            }
+
+            ReactDOM.render(
+                <Resume data={Obj} />,
+                document.getElementById('container')
+            );
+        </script>
+    </body>
+</html>

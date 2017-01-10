@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=0.8">
         <title>Cheng, Kai-yuan(鄭凱原)'s Resume</title>
 
         <link rel="stylesheet" type="text/css" href="Style/Main.css" />
@@ -130,9 +131,16 @@
                                     <a href={Sub.Link} target="_blank">{Sub.Title}</a>
                                 )
                             })()
+                            var Link = (function() {
+                                if(Sub.Link == "")
+                                    return (<span></span>)
+                                return (
+                                    <span>( <a href={Sub.Link} target="_blank">{Sub.Link}</a> )</span>
+                                )
+                            })()
                             return (
                                 <li key={j}>
-                                    {Title}
+                                    {Title} {Link}
                                     <ListNode data={Sub.Description} />
                                 </li>
                             )
@@ -286,6 +294,18 @@
                 }],
 
                 Project: [{
+                    Lang: 'PHP, MySQL',
+                    List: [{
+                        Title: '教育部 - 國民教育社群網',
+                        Link: 'http://teach.eje.edu.tw/',
+                        Description: ['教育部中小學教育所使用的資訊社群網站，與一般網站雷同，包含訊息發布、資源分享、討論區等功能。']
+                    },
+                    {
+                        Title: '2010世界大學橋藝錦標賽計分系統',
+                        Link: '',
+                        Description: ['將橋藝比賽由以往的人工計分方式E化的計分系統。']
+                    }]
+                },{
                     Lang: 'C#, Asp.Net',
                     List: [{
                         Title: '台灣港務公司 - 官方網站',
@@ -296,6 +316,11 @@
                         Title: '國立陽明大學 - 宿舍管理系統',
                         Link: '',
                         Description: ['參與相關系統的維護與後續精進需求開發，包含住宿申請、宿舍/床位管理、自動排房作業、保證金管理、電費管理等。主要使用C#，作業量較繁重的部分則由SQL的Stored Procedure負責，後期精進部分則開始倒入Javascript以因應規模變大的Web UI處理。']
+                    },
+                    {
+                        Title: '差異比對報告產生系統',
+                        Link: '',
+                        Description: ['由於敝公司的版本控管軟體無法產生報告檔。因此我串接DiffMerge、wkhtmltopdf等軟體，並自行撰寫差異報告的解析器，建構出可產製Html、Pdf，格式比照github異動記錄的系統。']
                     }]
                 },{
                     Lang: 'Javascript(jQuery, D3.js, React.js)',

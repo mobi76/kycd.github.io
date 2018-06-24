@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=0.8">
-        <title>Cheng, Kai-yuan(鄭凱原)'s Resume</title>
+        <title>Lin, Yu-ting(林語婷)'s Resume</title>
 
         <link rel="stylesheet" type="text/css" href="Style/Main.css" />
         <script type="text/javascript" src="Script/Main.js"></script>
@@ -188,27 +188,6 @@
                 }
             });
 
-            var Contest = React.createClass({
-                render: function() {
-                    var List = this.props.data.map(function(Node, i) {
-                        return (
-                            <li key={i}>
-                                {Node.Title}
-                                <ListNode data={Node.Description} />
-                            </li>
-                        )
-                    })
-                    return(
-                        <div>
-                            <h1>Contest</h1>
-                            <ul>
-                                {List}
-                            </ul>
-                        </div>
-                    )
-                }
-            })
-
             var Resume = React.createClass({
                 render: function() {
                     // console.log(this.props.data.Experience);
@@ -221,7 +200,6 @@
                             <Skill data={this.props.data.Skill} />
                             <Project data={this.props.data.Project} />
                             <Education data={this.props.data.Education} />
-                            <Contest data={this.props.data.Contest} />
                         </div>
                     );
                 }
@@ -349,34 +327,7 @@
                     School: 'National Sun Yat-sen University',
                     City: 'Kaohsiung',
                     Time: '09/2006 ~ 06/2010'
-                }],
-
-                Contest: [
-                    {
-                        Title: 'ACM-ICPC亞洲區',
-                        Description: [
-                            '曾參與2006, 2007, 2008, 2009, 2010台灣賽區.',
-                            '2007年排名為台灣賽區第13名.'
-                        ]
-                    },
-                    {
-                        Title: '全國大專電腦軟體設計競賽',
-                        Description: [
-                            '曾參與2006, 2007, 2008, 2009, 2010年甲組.',
-                            '2007, 2009, 2010年獲得佳作.'
-                        ]
-                    },
-                    {
-                        Title: '中山大學程式設計競賽',
-                        Description: [
-                            '曾參與2006, 2007, 2008, 2009年競賽.',
-                            '2006年獲得乙組冠軍',
-                            '2007年獲得甲組冠軍',
-                            '2008年獲得甲組佳作',
-                            '2009年獲得甲組第3名'
-                        ]
-                    }
-                ]
+                }]
             }
 
             ReactDOM.render(

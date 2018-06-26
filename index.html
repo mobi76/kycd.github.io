@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=0.8">
-        <title>Cheng, Kai-yuan's Resume</title>
+        <title>Lin, Yu-ting(林語婷)'s Resume</title>
 
         <link rel="stylesheet" type="text/css" href="Style/Main.css" />
         <script type="text/javascript" src="Script/Main.js"></script>
@@ -49,7 +49,7 @@
                         )
                     })
 
-                    var Title = "Cheng, Kai-yuan's RESUME";
+                    var Title = "Lin, Yu-ting(林語婷)'s RESUME";
                     return (
                         <div>
                             <h1>{Title}</h1>
@@ -131,9 +131,16 @@
                                     <a href={Sub.Link} target="_blank">{Sub.Title}</a>
                                 )
                             })()
+                            var Link = (function() {
+                                if(Sub.Link == "")
+                                    return (<span></span>)
+                                return (
+                                    <span>( <a href={Sub.Link} target="_blank">{Sub.Link}</a> )</span>
+                                )
+                            })()
                             return (
                                 <li key={j}>
-                                    {Title}
+                                    {Title} {Link}
                                     <ListNode data={Sub.Description} />
                                 </li>
                             )
@@ -181,27 +188,6 @@
                 }
             });
 
-            var Contest = React.createClass({
-                render: function() {
-                    var List = this.props.data.map(function(Node, i) {
-                        return (
-                            <li key={i}>
-                                {Node.Title}
-                                <ListNode data={Node.Description} />
-                            </li>
-                        )
-                    })
-                    return(
-                        <div>
-                            <h1>Contest</h1>
-                            <ul>
-                                {List}
-                            </ul>
-                        </div>
-                    )
-                }
-            })
-
             var Resume = React.createClass({
                 render: function() {
                     // console.log(this.props.data.Experience);
@@ -214,7 +200,6 @@
                             <Skill data={this.props.data.Skill} />
                             <Project data={this.props.data.Project} />
                             <Education data={this.props.data.Education} />
-                            <Contest data={this.props.data.Contest} />
                         </div>
                     );
                 }
@@ -223,44 +208,37 @@
             var Obj = {
                 Contact: [{
                     Type: 'E-mail',
-                    Val: 'kycd.dark@gmail.com',
+                    Val: 'doreen761003@gmail.com',
                     ValType: 'string'
                 },{
                     Type: 'Github',
-                    Val: 'https://github.com/kycd',
+                    Val: 'https://github.com/mobi76',
                     ValType: 'link'
                 },{
                     Type: 'Homepage',
-                    Val: 'https://kycd.github.io/',
-                    ValType: 'link'
-                },{
-                    Type: 'Linkedin',
-                    Val: 'https://www.linkedin.com/in/kai-yuan-cheng-0a3ab912a',
+                    Val: 'https://mobi76.github.io/',
                     ValType: 'link'
                 },{
                     Type: 'Phone',
-                    Val: '+886-912-174-745',
+                    Val: '+886-975-012-713',
                     ValType: 'string'
                 }],
 
                 Summary: {
                     Highlight: [
-                        'Programmer of C/C++, C# and Javascript.',
+                        'Programmer of Java and Javascript.',
                         'Specialize in front-end, coverd in back-end.'
                     ],
-                    Msg: 'Programing experience over ten years, specialize in website development. Love to find different ways to complete the work, enjoy develop supporting tool to improve workflow. Usually using C# and Javascript, now learning Node.js, Golang.'
+                    Msg: '我是一個前端網頁工程師，主要使用 Javascript、HTML與CSS作開發，因為會一些 Java 所以Back-end的部分也有碰一點。最近熱衷於使用 Angular 開發網站，聽說 Vue.js 也是目前當紅明星，也想嘗試用用看。'
                 },
 
                 Experience: [{
-                    Title: 'HAMASTAR Technology Co., Ltd.',
-                    Time: 'Since November 2012 to current',
+                    Title: 'Changing Information Technology Inc.',
+                    Time: 'Since January 2014 to current',
                     JobTitle: 'Software Engineer',
                     Description: [
                         'Website develop',
-                        'Information visualization',
-            			'Database schema maintain',
-            			'Windows service develop',
-            			'Supporting tool develop'
+            			'Database schema maintain'
                     ]
                 }],
 
@@ -268,96 +246,83 @@
                     Title: 'Language',
                     Kind: [
                         'C',
-                		'C++',
-                		'C#',
-                		'ASP.Net',
-                		'PHP',
-                		'Javascript (jQuery, D3.js, HighCharts.js, React.js)',
+                		'Java(Apache Struts)',
+                		'Javascript (jQuery, D3.js)',
+                        'Angular',
                 		'CSS',
-                		'SQL(MySQL and SQL Server)'
+                		'SQL(Postgres, Oracle and SQL Server)'
                     ]
                 },
                 {
                     Title: 'REVISION CONTROL',
                     Kind: [
-                        'Git',
-                		'SVN',
-                		'TFS'
+                        'Git'
                     ]
                 }],
 
                 Project: [{
-                    Lang: 'C#, Asp.Net',
+                    Lang: 'Angular, Bootstrap, RESTful API, Postgres',
                     List: [{
-                        Title: 'Taiwan International Ports Corporation, Ltd Official Website',
-                        Link: 'http://www.twport.com.tw/en/',
-                        Description: ['Several system like news, photo, video, vote, contact, opendata.']
+                        Title: '凱基數位通路密碼系統',
+                        Link: '',
+                        Description: [
+                            '凱基銀行用來管理銀行業務相關資料的系統，包含基本新增刪修與查找紀錄、統計報表等功能。',
+                            '後端使用 RESTful 架構，前端使用 Angular，我主要負責的是前端的部分，從切板至 Angular component 的撰寫，與規劃 RESTful API',
+                            '運用 Angular guard 實作與其他系統的 Single-Sign-On。'
+                        ]
+                    }]
+                },{
+                    Lang: 'jQuery, D3.js, Bootstrap, Java, Apache Struts',
+                    List: [{
+                        Title: '台中銀行 WebATM',
+                        Link: '',
+                        Description: [
+                            '參與完整專案開發，內含自跨行轉帳、餘額查詢、交易紀錄查詢等多種功能，主要工作是開發前端交易流程與版面切板。',
+                            '熟悉晶片卡交易規範與金管會安全交易規範。',
+                            '符合國家通訊傳播委員會無障礙標章 A 等級。'
+                        ]
                     },
                     {
-                        Title: 'National Yang-Ming University - Dormitory Management System',
+                        Title: '結合時戳與雜湊樹之安全防護框架系統',
                         Link: '',
-                        Description: ['A system manage dormitory applications and arrange beds.']
-                    }]
+                        Description: [
+                            '參與完整專案開發，內含 Dashboard、交易紀錄查詢等多種功能，我主要負責開發前端交易流程與版面切板，並以 D3.js 呈現各區塊運作現況。',
+                            '撰寫測試 javascript，對伺服器做壓力測試，並產生報告。'
+                        ]
+                    }
+                    ]
                 },{
-                    Lang: 'Javascript(jQuery, D3.js, React.js)',
+                    Lang: 'jQuery, Bootstrap, Java, Postgres',
                     List: [{
-                        Title: 'Gender Equality Committee of the Executive Yuan - Statistics Database Site',
-                        Link: 'https://www.gender.ey.gov.tw/gecdb/',
-                        Description: ['Display statistical chart about gender equality information.']
+                        Title: '多憑證驗存證系統',
+                        Link: '',
+                        Description: [
+                            '參與完整專案開發，內含 Dashboard、帳號管理、使用者管理等多種功能，主要工作是開發前端表單設計與版面切板。',
+                            '使用Chart.js繪製簡易伺服器數據圖表以利管理者監控。']
                     },{
-                        Title: 'Executive Yuan Official Website - Price Chart of Livehood Necessities',
-                        Link: 'http://www.ey.gov.tw/InfoView.aspx?n=485A66D492D051A4&s=FB01D469347C76A7',
-                        Description: ['Display price chart of livelihood necessities.']
-                    }]
-                },{
-                    Lang: 'C#, Asp.Net, Javascript(jQuery)',
-                    List: [{
-                        Title: 'Executive Yuan Kid Site - Game Area',
-                        Link: 'http://kids.ey.gov.tw/cp.aspx?n=C5B39410DEB35AA5',
-                        Description: ['Simple game in web for kids. Like painter, tic tac toe, quest assign']
+                        Title: '多家銀行 MOTP 行動動態密碼系統',
+                        Link: '',
+                        Description: [
+                            '多以新增客製需求為主，此項產品開發已退至二線。大部分的需求為針對使用者的紀錄產生報表，或對原既有表單再新增客製欄位。',
+                            '完成與 3D Secure 信用卡交易介接。'
+                        ]
                     },{
-                        Title: 'Gender Equality Committee of the Executive Yuan - Game School Site',
-                        Link: 'https://www.gender.ey.gov.tw/school/',
-                        Description: ['Simple game in web for kids. Like tic tac toe, racing car, quest assign']
+                        Title: 'One-Time-Ticket 系統',
+                        Link: '',
+                        Description: [
+                            '參與完整專案開發，整合 Passbook (Apple Wallet)，發佈一次性票券。',
+                            '後台網站開發，提供管理者票券設計、票券預覽，主要以jQuery進行Dom操作，模擬手機上看到的票券。'
+                        ]
                     }]
                 }],
 
                 Education: [{
-                    Title: 'Master degree of engineering',
-                    Deptartment: 'department of computer science and engineering',
-                    School: 'National Sun Yat-sen University',
-                    City: 'Kaohsiung',
-                    Time: '09/2010 ~ 09/2012'
-                },{
-                    Title: 'Bachelor of engineering',
-                    Deptartment: 'department of computer science and engineering',
-                    School: 'National Sun Yat-sen University',
-                    City: 'Kaohsiung',
-                    Time: '09/2006 ~ 06/2010'
-                }],
-
-                Contest: [
-                    {
-                        Title: 'ACM-ICPC Asia',
-                        Description: ['Participate Taiwan site in 2006, 2007, 2008, 2009, 2010.']
-                    },
-                    {
-                        Title: 'NCPC (National Collegiate Programming Contest)',
-                        Description: [
-                            'Participate in 2006, 2007, 2008, 2009, 2010.',
-                            'Award for Excellent in 2007, 2009, 2010.'
-                        ]
-                    },
-                    {
-                        Title: 'NSYSU Campus-Wide Programming Contest',
-                        Description: [
-                            'Participate in 2006, 2007, 2008, 2009.',
-                            'First price in 2006, 2007.',
-                            'Award for Excellent in 2008.',
-                            'Third price in 2009.'
-                        ]
-                    }
-                ]
+                    Title: '學士',
+                    Deptartment: '資訊工程學系',
+                    School: '國立中正大學',
+                    City: '嘉義',
+                    Time: '09/2008 ~ 02/2013'
+                }]
             }
 
             ReactDOM.render(
